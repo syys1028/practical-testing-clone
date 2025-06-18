@@ -4,10 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import sample.cafekiosk.spring.IntegrationTestSupport;
-import sample.cafekiosk.spring.client.mail.MailSendClient;
 import sample.cafekiosk.spring.domain.history.mail.MailSendHistory;
 import sample.cafekiosk.spring.domain.history.mail.MailSendHistoryRepository;
 import sample.cafekiosk.spring.domain.order.Order;
@@ -64,11 +61,6 @@ class OrderStatisticsServiceTest extends IntegrationTestSupport {
         Product product3 = createProduct(HANDMADE, "003", 3000);
         List<Product> products = List.of(product1, product2, product3);
         productRepository.saveAll(products);
-
-        Order order1 = createPaymentCompletedOrder(LocalDateTime.of(2025, 6, 16, 23, 59, 59), products);
-        Order order2 = createPaymentCompletedOrder(now, products);
-        Order order3 = createPaymentCompletedOrder(LocalDateTime.of(2025, 6, 17, 23, 59, 59), products);
-        Order order4 = createPaymentCompletedOrder(LocalDateTime.of(2025, 6, 15, 0, 0), products);
 
         // stubbing
         when(mailSendClient.sendEmail(any(String.class), any(String.class), any(String.class), any(String.class)))
